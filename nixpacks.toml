@@ -1,0 +1,20 @@
+[phases.setup]
+nixpkgs = [
+  "nodejs_22",
+  "mysql_8"
+]
+
+[phases.install]
+cmds = [
+  "npm ci"
+]
+
+[phases.build]
+cmds = [
+  "npm run build",
+  "cd build && npm ci",
+  "node ace migration:run"
+]
+
+[start]
+cmd = "node ace serve"
