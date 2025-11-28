@@ -1,20 +1,14 @@
 [phases.setup]
-nixpkgs = [
-  "nodejs_22",
-  "mysql_8"
-]
+nixpkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = [
-  "npm ci"
-]
+cmds = ["npm ci"]
 
 [phases.build]
 cmds = [
   "npm run build",
-  "cd build && npm ci",
-  "node ace migration:run"
+  "cd build && npm ci --production"  # Install deps in the built JS app
 ]
 
 [start]
-cmd = "node ace serve"
+cmd = "node ./build/bin/server.js"  # Run from build directory
